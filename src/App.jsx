@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo, toggleTodo } from "./redux/todoSlice";
 import { selectTodos, selectCompletedTodos } from "./redux/selectors";
-import "./App.css"; // Import du fichier CSS
+import "./App.css";
 
 const App = () => {
   const [input, setInput] = useState("");
