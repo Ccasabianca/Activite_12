@@ -7,10 +7,12 @@ import "./App.css";
 const App = () => {
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
+
   const todos = useSelector(selectTodos);
   const completedTodos = useSelector(selectCompletedTodos);
 
   const handleAddTodo = () => {
+    // Différent du cours, pour éviter ligne vide
     if (input.trim() !== "") {
       dispatch(addTodo(input));
       setInput("");
@@ -18,23 +20,22 @@ const App = () => {
   };
 
   return (
-    <div className="app-container">
+    <div>
       <h1>Liste des tâches</h1>
-      <div className="input-container">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Ajouter une tâche..."
-        />
-        <button onClick={handleAddTodo}>Ajouter</button>
-      </div>
-      <ul className="todo-list">
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Ajouter une tâche..."
+      />
+      <button onClick={handleAddTodo}>Ajouter</button>
+      
+      <ul>
         {todos.map((todo) => (
           <li
             key={todo.id}
             onClick={() => dispatch(toggleTodo(todo.id))}
-            className={todo.completed ? "completed" : ""}
+            className={todo.completed ? "completed" : ""} // Ajout d'une classe pour différencier les taches terminées
           >
             {todo.texte}
           </li>
@@ -42,7 +43,7 @@ const App = () => {
       </ul>
 
       <h2>Tâches terminées</h2>
-      <ul className="completed-list">
+      <ul>
         {completedTodos.map((todo) => (
           <li key={todo.id}>{todo.texte}</li>
         ))}
@@ -50,5 +51,4 @@ const App = () => {
     </div>
   );
 };
-
 export default App;
