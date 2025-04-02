@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addTodo, toggleTodo } from "./redux/todoSlice";
 import { selectTodos, selectCompletedTodos } from "./redux/selectors";
+import "./App.css"; // Import du fichier CSS
 
 const App = () => {
   const [input, setInput] = useState("");
@@ -17,24 +18,23 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="app-container">
       <h1>Liste des tâches</h1>
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="Ajouter une tâche..."
-      />
-      <button onClick={handleAddTodo}>Ajouter</button>
-      <ul>
+      <div className="input-container">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Ajouter une tâche..."
+        />
+        <button onClick={handleAddTodo}>Ajouter</button>
+      </div>
+      <ul className="todo-list">
         {todos.map((todo) => (
           <li
             key={todo.id}
             onClick={() => dispatch(toggleTodo(todo.id))}
-            style={{
-              textDecoration: todo.completed ? "line-through" : "none",
-              cursor: "pointer",
-            }}
+            className={todo.completed ? "completed" : ""}
           >
             {todo.texte}
           </li>
@@ -42,7 +42,7 @@ const App = () => {
       </ul>
 
       <h2>Tâches terminées</h2>
-      <ul>
+      <ul className="completed-list">
         {completedTodos.map((todo) => (
           <li key={todo.id}>{todo.texte}</li>
         ))}
